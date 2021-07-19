@@ -3,10 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Neuroglia.AsyncApi;
 
 namespace TodoApi.Controllers
 {
+
+    [AsyncApi("WeatherForecast", "1.0.0")]
+    public class WeatherForecastHub: Hub {
+
+        private readonly string WeatherChannel = "weather-channel";
+
+        [Channel("/ws/weather"), SubscribeOperation]
+        public async Task Weather() {
+            await Groups.AddToGroupAsync(WeatherChannel, WeatherChannel);
+        }
+
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

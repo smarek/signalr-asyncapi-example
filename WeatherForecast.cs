@@ -1,7 +1,9 @@
 using System;
+using Neuroglia.AsyncApi;
 
 namespace TodoApi
 {
+    [Message]
     public class WeatherForecast
     {
         public DateTime Date { get; set; }
